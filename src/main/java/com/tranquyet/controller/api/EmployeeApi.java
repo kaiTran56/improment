@@ -1,7 +1,9 @@
 package com.tranquyet.controller.api;
 
-import com.tranquyet.entity.EmployeeEntity;
 import com.tranquyet.service.EmployeeService;
+import com.tranquyet.service.primary.PrimaryEmployeeService;
+import com.tranquyet.service.second.SecondEmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,25 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
+@Slf4j
 public class EmployeeApi {
+//    @Autowired
+//    private EmployeeService employeeService;
+
     @Autowired
-    private EmployeeService employeeService;
+    private PrimaryEmployeeService primaryEmployeeService;
+    @Autowired
+    private SecondEmployeeService secondEmployeeService;
     @GetMapping
-    public ResponseEntity<List<EmployeeEntity>> getAll(){
-        List<EmployeeEntity> employees = employeeService.getAll();
+    public ResponseEntity<?> getAll(){
+        List<?> employees = primaryEmployeeService.getAll();
+        log.info("------------------------- DATABASE 1 ----------------------");
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+    @GetMapping("/second")
+    public ResponseEntity<?> getAllAtSecondDB(){
+        List<?> employees = secondEmployeeService.getAll();
+        log.info("------------------------- DATABASE 2 ----------------------");
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 }

@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@ComponentScan({"com.tranquyet.service", "com.tranquyet.service.impl",
-        "com.tranquyet.controller", "com.tranquyet.controller.api"})
-@EntityScan({"com.tranquyet.entity"})
-@EnableJpaRepositories("com.tranquyet.repository")
+@ComponentScan(basePackages = {"com.tranquyet"})
+@EntityScan(basePackages = {"com.tranquyet"})
+//@EnableJpaRepositories(basePackages = "com.tranquyet.repository")
 @SpringBootApplication
 public class SpringCloudApplication {
 
