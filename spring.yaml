@@ -1,4 +1,27 @@
 version: '3.1'
 services:
-  spring-docker:
-    image: spring-docker
+  spring-cloud:
+    image: spring-cloud
+    ports:
+      - 8090:8090
+    environment:
+      MYSQL_HOST: mysql-app
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    networks:
+      - spring
+  mysql-app:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: employees
+    volumes:
+      - mysql-spring:/var/lib/mysql
+    networks:
+      - spring
+volumes:
+  mysql-spring:
+networks:
+  spring:
